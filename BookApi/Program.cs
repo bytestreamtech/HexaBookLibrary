@@ -16,6 +16,13 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// Apply migrations and seed database
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BookContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
