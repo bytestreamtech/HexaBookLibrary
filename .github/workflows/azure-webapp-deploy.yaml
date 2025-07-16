@@ -24,11 +24,12 @@ jobs:
         run: dotnet build ./BookApi/BookApi.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./BookApi/BookApi.csproj -c Release -o ./publish
+        run: dotnet publish BookApi/BookApi.csproj --configuration Release --output ./publish --no-build
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ./publish
