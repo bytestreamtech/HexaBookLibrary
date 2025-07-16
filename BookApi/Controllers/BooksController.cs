@@ -66,5 +66,11 @@ namespace BookApi.Controllers
             await _bookRepository.DeleteBookAsync(id);
             return NoContent();
         }
+
+        [HttpGet("test")]
+        public ActionResult<string> Test()
+        {
+            return "Book API is working!";
+        }
     }
 }
