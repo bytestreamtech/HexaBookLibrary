@@ -1,64 +1,72 @@
-# BookApi
+# BookApi Project Documentation
 
-## Overview
-This project is a .NET 8 Web API that performs CRUD operations on a Book model. The application uses Entity Framework with SQLite as the database provider and implements the repository pattern for data access.
+## Project Description
+BookApi is a RESTful API for managing a library of books. It allows users to perform CRUD operations on books, authors, and genres, supporting features such as search, filtering, and pagination. The project is built using ASP.NET Core Web API and follows modern software engineering practices for scalability and maintainability.
 
 ## Project Structure
-The project is organized into the following directories and files:
+```
+BookApi/
+├── Controllers/         # Contains BooksController.cs
+├── Models/              # Contains Book.cs
+├── Repositories/        # Contains BookRepository.cs, IBookRepository.cs
+├── Data/                # Contains BookContext.cs
+├── Migrations/          # Entity Framework migrations
+├── Program.cs           # Application entry point
+├── appsettings.json     # Application configuration
+├── books.db             # SQLite database file
+└── README.md            # Project documentation
+```
 
-- **Controllers**
-  - `BooksController.cs`: Contains methods for handling HTTP requests related to the Book model, including Create, Read, Update, and Delete operations.
-  
-- **Models**
-  - `Book.cs`: Defines the properties of the Book model: ID, Title, Author, PublishedYear, Language, and Genre.
-  
-- **Repositories**
-  - `IBookRepository.cs`: An interface that defines the contract for the repository pattern, including method signatures for CRUD operations.
-  - `BookRepository.cs`: Implements the `IBookRepository` interface and contains the logic for interacting with the database using Entity Framework.
-  
-- **Data**
-  - `BookContext.cs`: Inherits from `DbContext` and defines the `DbSet<Book>` property for the Book model, configuring the database context for Entity Framework.
-  
-- **Configuration**
-  - `appsettings.json`: Contains configuration settings for the application, including the connection string for the SQLite database.
-  
-- **Project File**
-  - `BookApi.csproj`: The project file for the .NET application, including references to the required packages for Entity Framework and SQLite.
-  
-- **Entry Point**
-  - `Program.cs`: The entry point of the application, setting up the web host, configuring services, and mapping the controllers.
+## List of Classes and Descriptions
+* **BooksController**: Handles API requests for book operations (CRUD, search, filter).
+* **Book**: Represents the book entity with properties like Id, Title, Author, Genre, and Year.
+* **BookRepository**: Implements data access logic for books using Entity Framework Core.
+* **IBookRepository**: Interface defining contract for book repository operations.
+* **BookContext**: Entity Framework Core database context for managing book entities and migrations.
 
-## Getting Started
+## API Endpoints
+The following endpoints are available:
+- `GET /api/books` - Retrieve all books (supports filtering and pagination)
+- `GET /api/books/{id}` - Retrieve a specific book by ID
+- `POST /api/books` - Create a new book
+- `PUT /api/books/{id}` - Update an existing book
+- `DELETE /api/books/{id}` - Delete a book
+
+## Patterns and Practices Used
+* **Repository Pattern**: Used for abstracting data access logic in the BookRepository and IBookRepository.
+* **Dependency Injection**: Built-in ASP.NET Core DI is used for controllers and repositories.
+* **Entity Framework Core**: Used for ORM and database migrations.
+* **RESTful API Design**: Follows REST conventions for resource management.
+* **Exception Handling**: Standard ASP.NET Core exception handling is used.
+* **Logging**: ASP.NET Core logging is enabled for diagnostics.
+
+## Build, Test, Run, and Publish
 
 ### Prerequisites
-- .NET 8 SDK
-- SQLite
+- .NET SDK (6.0 or later)
+- SQL Server (or configured database)
 
-### Setup
-1. Clone the repository or download the project files.
-2. Navigate to the project directory.
-3. Restore the project dependencies by running:
-   ```
-   dotnet restore
-   ```
-4. Update the connection string in `appsettings.json` if necessary.
-
-### Running the Application
-To run the application, use the following command:
+### Build
+```bash
+dotnet build
 ```
+
+### Test
+```bash
+dotnet test
+```
+
+### Run
+```bash
 dotnet run
 ```
-The API will be available at `http://localhost:5000`.
+The API will be available at `https://localhost:5001` or as configured in `appsettings.json`.
 
-### API Endpoints
-- **GET** `/api/books`: Retrieve all books.
-- **GET** `/api/books/{id}`: Retrieve a book by ID.
-- **POST** `/api/books`: Create a new book.
-- **PUT** `/api/books/{id}`: Update an existing book.
-- **DELETE** `/api/books/{id}`: Delete a book by ID.
+### Publish
+```bash
+dotnet publish -c Release -o ./publish
+```
+Deploy the contents of the `publish` folder to your hosting environment.
 
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
-## License
-This project is licensed under the MIT License.
+---
+For further details, refer to the inline code comments and documentation within each class.
