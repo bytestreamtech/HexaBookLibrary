@@ -15,15 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
+    #   - name: Set up .NET
+    #     uses: actions/setup-dotnet@v4
+    #     with:
+    #       dotnet-version: '8.0.x'
 
-      - name: Build BookApi
-        run: |
-          cd BookApi
-          dotnet publish -c Release -o publish
+    #   - name: Build BookApi
+    #     run: |
+    #       cd BookApi
+    #       dotnet publish -c Release -o publish
 
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
@@ -35,7 +35,7 @@ jobs:
       - name: Build Docker image
         run: |
           cd BookApi
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} ./BookApi/
+          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} ./BookApi
 
       - name: Push Docker image
         run: |
